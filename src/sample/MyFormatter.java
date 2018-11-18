@@ -1,5 +1,5 @@
 package sample;
 
-public interface Format {
+public interface MyFormatter {
     String format(Object obj);
 }

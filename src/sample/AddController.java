@@ -48,10 +48,6 @@ public class AddController {
         if (wordField.getText().equals("") || meaningField.getText().equals("") || exampleField.getText().equals("") || partOfSpeechComboBox.getSelectionModel().getSelectedItem().toString().equals("Please Select")) {
             System.out.println("there are nothing");
         } else {
-//            dictionaryFull.setWord(wordField.getText());
-//            dictionaryFull.setPartOfSpeech(partOfSpeechComboBox.getValue().toString());
-//            dictionaryFull.setMeaning(meaningField.getText());
-//            dictionaryFull.setExample(exampleField.getText());
             dictionary.addDic(wordField.getText(), new Vocabulary(partOfSpeechComboBox.getValue().toString(), meaningField.getText(), exampleField.getText()));
         }
         resetField();
@@ -63,6 +59,10 @@ public class AddController {
         partOfSpeechComboBox.setValue("Please Select");
         meaningField.setText("");
         exampleField.setText("");
+    }
+    @FXML
+    public void EditOnAction(ActionEvent actionEvent){
+
     }
 
 }

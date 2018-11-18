@@ -30,6 +30,8 @@ public class DeleteController {
 
     private ObservableList<String> partOfSpeechList = FXCollections.observableArrayList("Noun", "Pronoun", "Verb", "Adverb", "Adjective", "Conjunction",
             "Preposition", "Interjection");
+    @FXML
+    public void clickTableView(MouseEvent mouseEvent){ }
     public void initialize() {
         partOfSpeechComboBox.setItems(partOfSpeechList);
         partOfSpeechComboBox.setValue("Please Select");
@@ -63,26 +65,13 @@ public class DeleteController {
         HomeController homeController = loader.getController();
         stage.show();
     }
+
     @FXML
-    public void clickTableView(MouseEvent mouseEvent){
-//        tableView.getSelectionModel().getSelectedItem();
-//        wordField.setText(tableView.getSelectionModel().getSelectedItem().toString());
-//        partOfSpeechComboBox.getSelectionModel().getSelectedItem().toString();
-//        //partOfSpeechComboBox.setSelectionModel(wordField.setText(tableView.getSelectionModel().getSelectedItem().toString()));
-//        meaningField.setText(tableView.getSelectionModel().getSelectedItem().toString());
-//        exampleField.setText(tableView.getSelectionModel().getSelectedItem().toString());
-        TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
-        System.out.println(pos);
-        int row = pos.getRow();
-        System.out.println(row);
-    }
-    @FXML
-    public void deleteOnAction(ActionEvent actionEvent){
+    public void deleteOnAction(ActionEvent actionEvent) {
         DictionaryFull select = tableView.getSelectionModel().getSelectedItem();
         if(select != null){
             dictionary.removeWord(select.wordProperty().get(),select);
             tableView.refresh();
         }
-
     }
 }

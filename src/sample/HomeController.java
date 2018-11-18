@@ -24,61 +24,19 @@ public class HomeController {
     TableView<DictionaryFull> tableView;
     @FXML
     TableColumn<DictionaryFull,String> wordColumn,partOfSpeechColumn,meaningColumn,examColumn;
-
+    private FormatController formatController;
     @FXML
     ComboBox partOfSpeechComboBox;
     private ObservableList<DictionaryFull> data = FXCollections.observableArrayList();
-    private ObservableList<String> partOfSpeechList = FXCollections.observableArrayList("Noun", "Pronoun", "Verb", "Adverb", "Adjective", "Conjunction",
-            "Preposition", "Interjection");
 
-//    public HomeController() {
-////        this.dictionary = new Dictionary();
-//        // 5 คำศัพท์ตอนเริ่มโปรแกรม
-//
-//    }
-
-    public void initialize() {
-//        tableView.getColumns().add(col1);
-//        tableView.setItems(dictionary.getDataDic2());
-        //word.setCellValueFactory(new PropertyValueFactory<>("word"));
-
-
-        showTable();
-        partOfSpeechComboBox.setItems(partOfSpeechList);
-        partOfSpeechComboBox.setValue("Please Select");
-//        wordColumn.setCellValueFactory(new PropertyValueFactory<DictionaryFull, String>("word"));
-//        partOfSpeechColumn.setCellValueFactory(new PropertyValueFactory<DictionaryFull, String>("partOfSpeech"));
-//        meaningColumn.setCellValueFactory(new PropertyValueFactory<DictionaryFull, String>("meaning"));
-//        examColumn.setCellValueFactory(new PropertyValueFactory<DictionaryFull, String>("example"));
-
-
-//        wordColumn.setCellValueFactory(cellData->cellData.getValue().wordProperty());
-//        partOfSpeechColumn.setCellValueFactory(cellData->cellData.getValue().partOfSpeechProperty());
-//        meaningColumn.setCellValueFactory(cellData->cellData.getValue().meaningProperty());
-//        examColumn.setCellValueFactory(cellData->cellData.getValue().exampleProperty());
-        tableView.setItems(dictionary.getDataDic());
-
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
-//    public class TableData {
-//        private final SimpleStringProperty word;
-//        private final SimpleStringProperty partOfSpeech;
-//        private final SimpleStringProperty meaning;
-//        private final SimpleStringProperty example;
-//
-//        public TableData(String word, String partOfSpeech, String meaning, String example) {
-//            this.word = new SimpleStringProperty(word);
-//            this.partOfSpeech = new SimpleStringProperty(partOfSpeech);
-//            this.meaning = new SimpleStringProperty(meaning);
-//            this.example = new SimpleStringProperty(example);
-//        }
-//        public TableData(String word, Vocabulary vocabulary) {
-//            this.word = new SimpleStringProperty(word);
-//            partOfSpeech = new SimpleStringProperty(vocabulary.getPartOfSpeech());
-//            meaning = new SimpleStringProperty(vocabulary.getMeaning());
-//            example = new SimpleStringProperty(vocabulary.getExample());
-//
-//        }
+    public void initialize() {
+        showTable();
+        tableView.setItems(dictionary.getDataDic());
+    }
 
     public void showTable(){
         data.clear();
@@ -105,6 +63,41 @@ public class HomeController {
         DeleteController deleteController = loader.getController();
         stage.show();
     }
+    @FXML
+    public void editOnAction(ActionEvent actionEvent) throws IOException {
+        Button button = (Button) actionEvent.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditView.fxml"));
+        stage.setScene(new Scene((Parent) loader.load()));
+        EditController editController = loader.getController();
+        stage.show();
+    }
+    @FXML
+    public void JSONOnAction() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormatView.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load(), 1200, 600));
+        stage.setTitle("Format JSON");
+        formatController = loader.getController();
+        formatController.setDictionaryController(this);
+        formatController.formatJSON();
+        stage.setResizable(false);
+        stage.show();
+    }
+    @FXML
+    public void XMLOnAction() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormatView.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load(), 1200, 600));
+        stage.setTitle("Format XML");
+        formatController = loader.getController();
+        formatController.setDictionaryController(this);
+        formatController.formatXML();
+        stage.setResizable(false);
+        stage.show();
+    }
+
+
 
     public TableView<DictionaryFull> getTableView() {
         return tableView;
@@ -113,4 +106,22 @@ public class HomeController {
     public void setTableView(TableView<DictionaryFull> tableView) {
         this.tableView = tableView;
     }
+    public TableView<DictionaryFull> getDictionaryTableView() {
+        return tableView;
+    }
+
+    public TableColumn<DictionaryFull, String> getWord() {
+        return wordColumn;
+    }
+
+    public TableColumn<DictionaryFull, String> getPartOfSpeech() { return partOfSpeechColumn; }
+
+    public TableColumn<DictionaryFull, String> getMeaning() {
+        return meaningColumn;
+    }
+
+    public TableColumn<DictionaryFull, String> getExam() {
+        return examColumn;
+    }
+
 }

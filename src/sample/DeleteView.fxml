@@ -9,17 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DeleteController">
    <children>
-      <TableView fx:id="tableView" layoutX="37.0" layoutY="55.0" onSort="#clickTableView" prefHeight="396.0" prefWidth="1155.0">
+      <TableView fx:id="tableView" layoutX="37.0" layoutY="55.0" prefHeight="396.0" prefWidth="1155.0">
          <columns>
             <TableColumn fx:id="wordColumn" prefWidth="178.66666793823242" text="word">
                <cellValueFactory>
                   <PropertyValueFactory property="word" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="PartOfSpeechColumn" prefWidth="133.6000213623047" text="partOfSpeech">
+            <TableColumn fx:id="partOfSpeechColumn" prefWidth="133.6000213623047" text="partOfSpeech">
                <cellValueFactory>
                   <PropertyValueFactory property="partOfSpeech" />
                </cellValueFactory>
@@ -29,19 +28,19 @@
                   <PropertyValueFactory property="meaning" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="exampleColumn" prefWidth="397.0665588378906" text="example">
+            <TableColumn fx:id="examColumn" prefWidth="397.0665588378906" text="example">
                <cellValueFactory>
                   <PropertyValueFactory property="example" />
                </cellValueFactory>
             </TableColumn>
          </columns>
       </TableView>
-      <Button layoutX="755.0" layoutY="526.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="52.0" prefWidth="150.0" text="Cancel">
+      <Button layoutX="733.0" layoutY="522.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="52.0" prefWidth="150.0" text="Back">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="314.0" layoutY="525.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="52.0" prefWidth="150.0" text="Delete">
+      <Button layoutX="302.0" layoutY="522.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="52.0" prefWidth="150.0" text="Delete">
          <font>
             <Font size="24.0" />
          </font>
