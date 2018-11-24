@@ -60,9 +60,5 @@ public class AddController {
         meaningField.setText("");
         exampleField.setText("");
     }
-    @FXML
-    public void EditOnAction(ActionEvent actionEvent){
-
-    }
 
 }

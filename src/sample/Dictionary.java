@@ -15,9 +15,9 @@ public class Dictionary {
     private DictionaryFull dictionaryFull;
     private static Dictionary instance = null;
     private PrintWriter printWriter;
-//    private String[] list_id;
-    ArrayList<String> list_id = new ArrayList<String>();
-    File file = new File("dictionary.txt");
+//    private String[] listId;
+    ArrayList<String> listId = new ArrayList<String>();
+    File file = new File("src/sample/dictionary.txt");
 
 
     public static Dictionary getInstance() {
@@ -35,38 +35,22 @@ public class Dictionary {
 //        showTable("Fantastic", new Vocabulary("Adjective", "extremely good", "We had a fantastic time."));
 //        showTable("And", new Vocabulary("Conjunction", "used to join two words, phrases, parts of sentences, or related statements together", "We were wet and tired."));
         try {
-//
-//            showTable("jij",new Vocabulary("sss", "asa", "asas"));
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
             String line = "";
             printWriter = new PrintWriter(new FileWriter(file, true));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             while ((line = bufferedReader.readLine()) != null) {
-//                showTable("jij",new Vocabulary("sss", "asa", "asas"));
-//                for (DictionaryFull dictionaryFull : vocabList) {
                     String[] arr =line.split("#");
                     System.out.println(arr[0]);
                     showTable(arr[0],arr[1],new Vocabulary(arr[2], arr[3], arr[4]));
-                    list_id.add(arr[0]);
+                    listId.add(arr[0]);
                     //
 //  printWriter.printf((dictionaryFull) + "\n");
 //                }
             }
-            System.out.println(list_id);
+            System.out.println(listId);
 
-//            while ((line = bufferedReader.readLine()) != null) {
-//                System.out.println(line);
-//                String[] arr =line.split("#");
-//                System.out.println(arr);
 //
-////                if (line.equals(dictionaryFull.toString())) {
-////                    System.out.println("same");
-////                } else {
-////                    System.out.println("not same");
-////                    printWriter.printf((dictionaryFull.toString2()) + "\n");
-////                }
-////                printWriter.printf((dictionaryFull.toString()) + "\n");
-//            }
-
 
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
@@ -74,15 +58,6 @@ public class Dictionary {
             e1.printStackTrace();
         }
         printWriter.close();
-//            for (DictionaryFull dictionaryFull : vocabList) {
-//                if (dictionaryFull.getWord().equals(dictionaryFull.getWord())){
-//                    System.out.println("ซ้ำเว้ย");
-//                }
-//                else{
-//                    printWriter.printf((dictionaryFull.toString()) + "\n");
-//                }
-//
-//            }
 
     }
 
@@ -138,12 +113,12 @@ public class Dictionary {
         dictionary.put(word, vocabulary);
         String id = genId();
         System.out.println("gen: "+id);
-        list_id.add(id);
+        listId.add(id);
         dictionaryFull = new DictionaryFull(id,word, vocabulary.getPartOfSpeech(), vocabulary.getMeaning(), vocabulary.getExample());
         vocabList.add(dictionaryFull);
 //        printWriter.printf(dictionaryFull.toString2()+"\n");
         try {
-            File file = new File("dictionary.txt");
+            File file = new File("src/sample/dictionary.txt");
             printWriter = new PrintWriter(new FileWriter(file, true));
 
 //            printWriter.printf("SSSS" + "\n");
@@ -156,10 +131,10 @@ public class Dictionary {
         }
     }
     public String genId(){
-        System.out.println(list_id);
+        System.out.println(listId);
         int newId=0;
         for (newId = 0; newId < 100000000 ; newId++) {
-            if(!list_id.contains(newId+"")){
+            if(!listId.contains(newId+"")){
                 return newId+"" ;
             }else{
 
@@ -176,7 +151,7 @@ public class Dictionary {
     public void removeWord(String id,String word, DictionaryFull wordRemove) {
 
 
-        File myFoo = new File("dictionary.txt");
+        File myFoo = new File("src/sample/dictionary.txt");
         FileWriter fooWriter = null; // true to append
         BufferedReader bufferedReader = null;
         String text_new="";
