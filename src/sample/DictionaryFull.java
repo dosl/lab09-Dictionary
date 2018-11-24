@@ -7,12 +7,21 @@ public class DictionaryFull {
     private SimpleStringProperty partOfSpeech;
     private SimpleStringProperty meaning;
     private SimpleStringProperty example;
-
-    public DictionaryFull(String word, String partOfSpeech, String meaning, String example) {
+    private String wordString;
+    private String partOfSpeechString;
+    private String meaningString;
+    private String exampleString;
+    private String id;
+    public DictionaryFull(String id,String word, String partOfSpeech, String meaning, String example) {
+        this.id=id;
         this.word = new SimpleStringProperty(word);
         this.partOfSpeech = new SimpleStringProperty(partOfSpeech);
         this.meaning = new SimpleStringProperty(meaning);
         this.example = new SimpleStringProperty(example);
+        this.wordString = word;
+        this.partOfSpeechString = partOfSpeech;
+        this.meaningString = meaning;
+        this.exampleString = example;
     }
 
     public String getWord() {
@@ -61,5 +70,17 @@ public class DictionaryFull {
 
     public SimpleStringProperty exampleProperty() {
         return example;
+    }
+
+    @Override
+    public String toString() {
+        return word + " " + partOfSpeech + " " + meaning + " " + example;
+    }
+
+    public String toString2() {
+        return id+"#"+wordString + "#" + partOfSpeechString + "#" + meaningString + "#" + exampleString;
+    }
+    public String get_id() {
+        return id;
     }
 }

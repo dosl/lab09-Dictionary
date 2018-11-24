@@ -34,17 +34,17 @@ public class HomeController {
     }
 
     public void initialize() {
-        showTable();
+//        showTable();
         tableView.setItems(dictionary.getDataDic());
     }
 
-    public void showTable(){
-        data.clear();
-        for (String word : dictionary.vocabList()){
-            Vocabulary vocab = dictionary.show(word);
-            data.add(new DictionaryFull(word, vocab.getPartOfSpeech(), vocab.getMeaning(), vocab.getExample()));
-        }
-    }
+//    public void showTable(){
+//        data.clear();
+//        for (String word : dictionary.vocabList()){
+//            Vocabulary vocab = dictionary.show(word);
+//            data.add(new DictionaryFull("",word, vocab.getPartOfSpeech(), vocab.getMeaning(), vocab.getExample()));
+//        }
+//    }
     @FXML
     public void addOnAction(ActionEvent actionEvent) throws IOException {
         Button button = (Button) actionEvent.getSource();

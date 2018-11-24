@@ -48,7 +48,7 @@ public class AddController {
         if (wordField.getText().equals("") || meaningField.getText().equals("") || exampleField.getText().equals("") || partOfSpeechComboBox.getSelectionModel().getSelectedItem().toString().equals("Please Select")) {
             System.out.println("there are nothing");
         } else {
-            dictionary.addDic(wordField.getText(), new Vocabulary(partOfSpeechComboBox.getValue().toString(), meaningField.getText(), exampleField.getText()));
+            dictionary.addFile(wordField.getText(), new Vocabulary(partOfSpeechComboBox.getValue().toString(), meaningField.getText(), exampleField.getText()));
         }
         resetField();
         cancelOnAction(actionEvent);

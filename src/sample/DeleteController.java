@@ -70,7 +70,9 @@ public class DeleteController {
     public void deleteOnAction(ActionEvent actionEvent) {
         DictionaryFull select = tableView.getSelectionModel().getSelectedItem();
         if(select != null){
-            dictionary.removeWord(select.wordProperty().get(),select);
+            String id= select.get_id();
+            dictionary.removeWord(id,select.wordProperty().get(), select);
+//            dictionary.removeWord(select.wordProperty().get(),select);
             tableView.refresh();
         }
     }

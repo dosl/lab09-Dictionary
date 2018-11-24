@@ -3,6 +3,8 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +14,11 @@ public class Dictionary {
     private ObservableList<DictionaryFull> vocabList;
     private DictionaryFull dictionaryFull;
     private static Dictionary instance = null;
+    private PrintWriter printWriter;
+//    private String[] list_id;
+    ArrayList<String> list_id = new ArrayList<String>();
+    File file = new File("dictionary.txt");
+
 
     public static Dictionary getInstance() {
         if (instance == null) {
@@ -22,11 +29,77 @@ public class Dictionary {
 
     private Dictionary() {
         vocabList = FXCollections.observableArrayList();
-        addDic("Security", new Vocabulary("Noun", " protection of a person, building, organization, or country against threats such as crime or attacks by foreign countries", "You'll need to notify security if you want to work late in the office."));
-        addDic("Game", new Vocabulary("Noun", "an entertaining activity or sport, especially one played by children, or the equipment needed for such an activity", "The children played a game of cops and robbers."));
-        addDic("Sleep", new Vocabulary("Verb", "to be in the state of rest when your eyes are closed, your body is not active, and your mind is unconscious", "I slept late on Sunday morning."));
-        addDic("Fantastic", new Vocabulary("Adjective", "extremely good", "We had a fantastic time."));
-        addDic("And", new Vocabulary("Conjunction", "used to join two words, phrases, parts of sentences, or related statements together", "We were wet and tired."));
+//        showTable("Security", new Vocabulary("Noun", " protection of a person, building, organization, or country against threats such as crime or attacks by foreign countries", "You'll need to notify security if you want to work late in the office."));
+//        showTable("Game", new Vocabulary("Noun", "an entertaining activity or sport, especially one played by children, or the equipment needed for such an activity", "The children played a game of cops and robbers."));
+//        showTable("Sleep", new Vocabulary("Verb", "to be in the state of rest when your eyes are closed, your body is not active, and your mind is unconscious", "I slept late on Sunday morning."));
+//        showTable("Fantastic", new Vocabulary("Adjective", "extremely good", "We had a fantastic time."));
+//        showTable("And", new Vocabulary("Conjunction", "used to join two words, phrases, parts of sentences, or related statements together", "We were wet and tired."));
+        try {
+//
+//            showTable("jij",new Vocabulary("sss", "asa", "asas"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String line = "";
+            printWriter = new PrintWriter(new FileWriter(file, true));
+            while ((line = bufferedReader.readLine()) != null) {
+//                showTable("jij",new Vocabulary("sss", "asa", "asas"));
+//                for (DictionaryFull dictionaryFull : vocabList) {
+                    String[] arr =line.split("#");
+                    System.out.println(arr[0]);
+                    showTable(arr[0],arr[1],new Vocabulary(arr[2], arr[3], arr[4]));
+                    list_id.add(arr[0]);
+                    //
+//  printWriter.printf((dictionaryFull) + "\n");
+//                }
+            }
+            System.out.println(list_id);
+
+//            while ((line = bufferedReader.readLine()) != null) {
+//                System.out.println(line);
+//                String[] arr =line.split("#");
+//                System.out.println(arr);
+//
+////                if (line.equals(dictionaryFull.toString())) {
+////                    System.out.println("same");
+////                } else {
+////                    System.out.println("not same");
+////                    printWriter.printf((dictionaryFull.toString2()) + "\n");
+////                }
+////                printWriter.printf((dictionaryFull.toString()) + "\n");
+//            }
+
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        printWriter.close();
+//            for (DictionaryFull dictionaryFull : vocabList) {
+//                if (dictionaryFull.getWord().equals(dictionaryFull.getWord())){
+//                    System.out.println("ซ้ำเว้ย");
+//                }
+//                else{
+//                    printWriter.printf((dictionaryFull.toString()) + "\n");
+//                }
+//
+//            }
+
+    }
+
+    public void readMsg() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Map<String, Vocabulary> getDictionary() {
@@ -45,23 +118,119 @@ public class Dictionary {
         return dictionary.get(word);
     }
 
-    public void addDic(String word, Vocabulary vocabulary) {
+    public void showTable(String id,String word, Vocabulary vocabulary) {
         dictionary.put(word, vocabulary);
-        dictionaryFull = new DictionaryFull(word, vocabulary.getPartOfSpeech(), vocabulary.getMeaning(), vocabulary.getExample());
+        dictionaryFull = new DictionaryFull(id,word, vocabulary.getPartOfSpeech(), vocabulary.getMeaning(), vocabulary.getExample());
         vocabList.add(dictionaryFull);
 
+
+//        printWriter.printf(dictionaryFull.toString2() + "\n");
+//        try {
+////            printWriter = new PrintWriter(new FileWriter(file, true));
+////            printWriter.printf(dictionaryFull.toString()+"\n");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        readMsg();
+
     }
+    public void addFile(String word,Vocabulary vocabulary){
+        dictionary.put(word, vocabulary);
+        String id = genId();
+        System.out.println("gen: "+id);
+        list_id.add(id);
+        dictionaryFull = new DictionaryFull(id,word, vocabulary.getPartOfSpeech(), vocabulary.getMeaning(), vocabulary.getExample());
+        vocabList.add(dictionaryFull);
+//        printWriter.printf(dictionaryFull.toString2()+"\n");
+        try {
+            File file = new File("dictionary.txt");
+            printWriter = new PrintWriter(new FileWriter(file, true));
 
+//            printWriter.printf("SSSS" + "\n");
+            printWriter.printf(dictionaryFull.toString2()+"\n");
+            printWriter.close();
+//            System.out.println("pL");
+//            System.out.println(dictionaryFull.toString2());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public String genId(){
+        System.out.println(list_id);
+        int newId=0;
+        for (newId = 0; newId < 100000000 ; newId++) {
+            if(!list_id.contains(newId+"")){
+                return newId+"" ;
+            }else{
 
+            }
+        }
+        System.out.println("no Id");
+        return newId+"";
+    }
     public void removeWord(String word, DictionaryFull wordRemove) {
         dictionary.remove(word);
         vocabList.remove(wordRemove);
 
     }
+    public void removeWord(String id,String word, DictionaryFull wordRemove) {
+
+
+        File myFoo = new File("dictionary.txt");
+        FileWriter fooWriter = null; // true to append
+        BufferedReader bufferedReader = null;
+        String text_new="";
+        try {
+            bufferedReader = new BufferedReader(new FileReader(file));
+            String line = "";
+            printWriter = new PrintWriter(new FileWriter(myFoo, true));
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] arr =line.split("#");
+//                System.out.println(arr[0]);
+                if (!arr[0].equals(id)){
+//                    System.out.println("Go !!"+id);
+                    text_new = text_new+line+"\n";
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (text_new!=null && text_new!="") {
+//            System.out.println("text: "+text_new);
+            try {
+                fooWriter = new FileWriter(myFoo, false);
+                fooWriter.write(text_new);
+                fooWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        dictionary.remove(word);
+        vocabList.remove(wordRemove);
+    }
+//    public ObservableList getDataDic() throws IOException {
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+//            String line = "";
+//            while ((line = bufferedReader.readLine())!=null){
+//                vocabList.add(vocabList);
+//            }
+//
+//            bufferedReader.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return vocabList;
+//    }
 
     public ObservableList getDataDic() {
         return vocabList;
     }
+
     public Map<String, Vocabulary> getDictionaryMap() {
         return dictionary;
     }
